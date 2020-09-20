@@ -1,77 +1,114 @@
-window.onload = function(){
+var clickObjeto = document.getElementById('calculator').querySelectorAll('.num'); console.log(clickObjeto);
+clickObjeto.forEach(numberClick);
 
-    var clickObjeto = document.getElementById('calculator').querySelectorAll('.num');
-    clickObjeto.forEach(numberClick);
+var clickOperador = document.getElementById('calculator').querySelectorAll('.operador'); console.log(clickOperador);
+clickOperador.forEach(numberClick);
 
+var numerosLista = [];
+var resultTotal =0;
+console.log("numeros", numerosLista);
 
-    //captura o click e o valor
-    function numberClick(item) {
-        item.addEventListener("click", function(){ 
-            
-            var clickOBjetic = item;
-            display(clickOBjetic);
-        }); 
+//captura o click e o valor
+function numberClick(item) {
+    item.addEventListener("click", function(){ 
+    
+        display(item); 
+    }); 
+}
+
+//separa os numeros das sinais de somas e quarda o valor da soma
+function display(displayNumber)
+{
+    var clickOBjetic = Number.parseInt(displayNumber.innerText);
+    console.log(clickOBjetic);
+    
+    if(Number.isInteger(clickOBjetic) === true)
+    {
+        numerosLista.push(clickOBjetic);
+    }
+    
+    else
+    {
+        numerosLista.push(displayNumber.innerText);
     }
 
-    //separa os numeros das sinais de somas e quarda o valor da soma
-    function display(displayNumber){
-        
-        var item = displayNumber.innerText;
-        var saveDisplay = document.getElementById('display').value += item;
-        var saveValue = parseInt(saveDisplay);
-        console.log(saveValue);
-        
-        
-        if(item == '-'){
-            alert('subtraction');
-        }
-
-        else if(item == '+'){
-            alert('addition');
-        }
-
-        else if(item == '*'){
-            alert('multiply');
-        }
-
-        else if(item == '/'){
-            alert('share');
-        }
-
-        else if(item == '='){
-            alert('result');
-        }
-
-        else if(item == 'C'){
-            document.getElementById('display').value = "";
-        }
-
-        else{
-            
-        }
+    if(displayNumber.innerText == '=')
+    {
+        resultado();
+        numerosLista = [];
+        alert('result');
     }
 
-    //indentifica o tipo de calculo e faz o calculo
-    function calc(typeCalc){
-        if(typeCalc == '+'){
-            calculate(result);
-        }
-        else if(typeCalc == '*'){
-            calculate(result);
-        }
-        else if(typeCalc == '/'){
-            calculate(result);
-        }
-        else if(typeCalc == '-'){
-            calculate(result);
-        }
-        else{
-            
-        }
+    else if(displayNumber.innerText == 'C')
+    {
+        document.getElementById('display').value = "";
+        numerosLista = [];
     }
 
-    //exibe no display o resultado
-    function calculate(result){
-        document.getElementById('display').value = result;
+    else{
+        document.getElementById('display').value += displayNumber.innerText ;
+    }
+}
+
+function resultado()
+{
+
+    var ultimoNumeros = 0;
+    var numeros = 0;
+    var operador = "";
+
+    if(numerosLista.length > 0)
+    {
+        numerosLista.forEach( (num) => 
+        {
+            if(Number.isInteger(num) === true)
+            {
+                
+
+                if(operador != "")
+                {
+                    
+                    if(operador == '-')
+                    {
+                        console.log("numeroChega: ", numeros);
+
+                        numeros = ultimoNumeros - num;
+                        
+                        console.log("numerouUlt: ", ultimoNumeros);
+
+                        ultimoNumeros = 0;
+                        console.log("numeros: ", numeros);
+                    }
+                
+                    else if(operador == '+')
+                    {
+                        numeros = ultimoNumeros + num;
+                        ultimoNumeros = 0;
+                        console.log("numeros: ", numeros);
+                    }
+                
+                    else if(operador == '*')
+                    {
+                        numeros = ultimoNumeros * num;
+                        ultimoNumeros = 0;
+                        console.log("numeros: ", numeros);
+                    }
+                
+                    else if(operador == '/')
+                    {
+                        numeros = ultimoNumeros / num;
+                        ultimoNumeros = 0;
+                        console.log("numeros: ", numeros);
+                    }
+                }
+                ultimoNumeros = Number.parseInt(num);
+            }
+            else
+            {
+                operador = num;
+            }
+        });    
+
+        document.getElementById('display').value = numeros;
     }
 }

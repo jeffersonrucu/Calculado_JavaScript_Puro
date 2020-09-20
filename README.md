@@ -11,5 +11,5 @@ Neste projeto estou criando um script para uma calculadora usando **JavaScript**
 
 ------------
 
-![calculadora](Calc.png "calculadora");
-![calculadora](Calc_captura.png "calculadora");
+![calculadora](Calc.png "calculadora")
+![calculadora](Calc_captura.png "calculadora")
