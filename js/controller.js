@@ -18,60 +18,20 @@ window.onload = function(){
         
         var item = displayNumber.innerText;
         var saveDisplay = document.getElementById('display').value += item;
-        var saveValue = parseInt(saveDisplay);
-        console.log(saveValue);
-        
-        
-        if(item == '-'){
-            alert('subtraction');
-        }
 
-        else if(item == '+'){
-            alert('addition');
-        }
 
-        else if(item == '*'){
-            alert('multiply');
+        if(item == 'C'){
+            document.getElementById('display').value = '';
         }
-
-        else if(item == '/'){
-            alert('share');
-        }
-
         else if(item == '='){
-            alert('result');
-        }
-
-        else if(item == 'C'){
-            document.getElementById('display').value = "";
-        }
-
-        else{
-            
+            var calcular = saveDisplay.replace(/[=]+/g, '');
+            calc(calcular);
         }
     }
 
-    //indentifica o tipo de calculo e faz o calculo
-    function calc(typeCalc){
-        if(typeCalc == '+'){
-            calculate(result);
-        }
-        else if(typeCalc == '*'){
-            calculate(result);
-        }
-        else if(typeCalc == '/'){
-            calculate(result);
-        }
-        else if(typeCalc == '-'){
-            calculate(result);
-        }
-        else{
-            
-        }
-    }
-
-    //exibe no display o resultado
-    function calculate(result){
-        document.getElementById('display').value = result;
-    }
+    function calc(saveNumber) {
+        var x = saveNumber;
+        var resultado = eval(saveNumber);
+        document.getElementById('display').value = resultado;
+      }
 }
